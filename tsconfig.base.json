@@ -14,7 +14,14 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "owner/Routes": ["apps/owner/src/app/remote-entry/entry.routes.ts"],
+      "passenger/Routes": [
+        "apps/passenger/src/app/remote-entry/entry.routes.ts"
+      ],
+      "admin/Routes": ["apps/admin/src/app/remote-entry/entry.routes.ts"],
+      "@taxi-workspace/auth": ["libs/shared/auth/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
