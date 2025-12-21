@@ -28,8 +28,6 @@ export class Register {
       setTimeout(() => {
         this.successMsg = undefined;
       }, 2000);
-      // this.auth.login(this.registerModel.role);
-      // this.route.parseUrl('/');
     }
   }
 }

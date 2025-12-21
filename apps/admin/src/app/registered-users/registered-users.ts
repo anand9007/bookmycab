@@ -1,8 +1,9 @@
+import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { AuthService, User } from '@taxi-workspace/auth';
 @Component({
   selector: 'app-registered-users',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './registered-users.html',
   styleUrl: './registered-users.scss',
 })

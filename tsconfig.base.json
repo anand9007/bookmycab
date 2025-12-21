@@ -20,7 +20,8 @@
         "apps/passenger/src/app/remote-entry/entry.routes.ts"
       ],
       "admin/Routes": ["apps/admin/src/app/remote-entry/entry.routes.ts"],
-      "@taxi-workspace/auth": ["libs/shared/auth/src/index.ts"]
+      "@taxi-workspace/auth": ["libs/shared/auth/src/index.ts"],
+      "@taxi-workspace/state": ["libs/state/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

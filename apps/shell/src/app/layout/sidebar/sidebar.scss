@@ -4,11 +4,6 @@
         align-items: center;
         gap: 10px;
     }
-
-    width: 220px;
-    background: #dee0e3;
-    height: 100%;
-    border-right: 1px solid #dee2e6;
     .menu {
         list-style: none;
         padding: 0;
@@ -22,7 +17,14 @@
             }
             &.active {
                 background: #42454b;
-                color: white;
+                a {
+                    color: #ffffff !important;
+                    svg{
+                        path {
+                            fill: #ffffff !important;
+                        }
+                    }
+                }
             }
         }
     }

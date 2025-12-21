@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { AuthService } from '@taxi-workspace/auth';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterModule],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss',
 })
@@ -14,24 +14,22 @@ export class Sidebar implements OnInit{
   role$ = this.authService.role$;
   menuItems = [
     // show dashboard to all roles
-    { label: 'Dashboard', route: '/dashboard', roles: ['OWNER', 'PASSENGER', 'ADMIN'] },
+    { label: 'Dashboard', route: '/app/admin', roles: ['ADMIN'] },
+    { label: 'Dashboard', route: '/app/owner', roles: ['OWNER'] },
+    { label: 'Dashboard', route: '/app/passenger', roles: ['PASSENGER'] },
     // role specific menu items
-    { label: 'Cab Listing', route: '/trips', roles: ['OWNER'] },
-    { label: 'Add / Edit Cab', route: '/trips', roles: ['OWNER'] },
-    { label: 'Booking History', route: '/trips', roles: ['OWNER', 'PASSENGER'] },
-    { label: 'Book Cab', route: '/bookings', roles: ['PASSENGER'] },
-    { label: 'Registered Users', route: '/admin/registered-users', roles: ['ADMIN'] },
-    { label: 'Manage Owners', route: '/admin/users', roles: ['ADMIN'] },
-    { label: 'Manage Passengers', route: '/admin/users', roles: ['ADMIN'] },
-    { label: 'Banners / Offers', route: '/admin/users', roles: ['ADMIN'] },
+    { label: 'Cab Listing', route: '/app/owner/trips', roles: ['OWNER'] },
+    { label: 'Add / Edit Cab', route: '/app/owner/trips', roles: ['OWNER'] },
+    { label: 'Booking History', route: '/app/owner/trips', roles: ['OWNER', 'PASSENGER'] },
+    { label: 'Book Cab', route: '/app/owner/bookings', roles: ['PASSENGER'] },
+    { label: 'Registered Users', route: '/app/admin/registered-users', roles: ['ADMIN'] },
+    { label: 'Manage Owners', route: '/app/admin/users', roles: ['ADMIN'] },
+    { label: 'Manage Passengers', route: '/app/admin/users', roles: ['ADMIN'] },
+    { label: 'Banners / Offers', route: '/app/admin/users', roles: ['ADMIN'] },
   ];
   ngOnInit(): void {
     this.role$.subscribe(role => {
       console.log('Sidebar User role changed:', role);
     });
-  }
-
-  navigate(value: string) {
-    console.log('Navigating to', value);
   }
 }
