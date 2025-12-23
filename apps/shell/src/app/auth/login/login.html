@@ -18,10 +18,8 @@
         <button class="btn btn-primary w-100" type="submit" [disabled]="loginForm.invalid">
           Login
         </button>
-        <div class="mt-2" *ngIf="loginForm.submitted && invalidLogin">
-          <small class="text-danger">
-            Invalid credentials
-          </small>
+        <div class="mt-2 text-danger" *ngIf="authError$ | async as error">
+            {{ error }}
         </div>
       </form>
       <div class="text-center mt-3 mb-3">

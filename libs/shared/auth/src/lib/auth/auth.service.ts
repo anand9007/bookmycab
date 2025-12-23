@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, map } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { BehaviorSubject, map, tap } from 'rxjs';
 import { User, UserRole } from '../models/user.model';
+import { HttpClient } from '@angular/common/http';
 
 const AUTH_ROLE_KEY = 'user_role';
 const USERS_KEY = 'registered_users';
@@ -8,6 +9,8 @@ const USERS_KEY = 'registered_users';
   providedIn: 'root',
 })
 export class AuthService {
+  private http = inject(HttpClient);
+  private apiUrl = 'http://localhost:3000/users';
   private roleSubject = new BehaviorSubject<UserRole | null>(
     (localStorage.getItem(AUTH_ROLE_KEY) as UserRole) || null);
 
@@ -48,6 +51,17 @@ export class AuthService {
   validateUser(username: string, password: string): User | null {
     const users = this.getUsers();
     return users.find(usr => usr.username === username && usr.password === password) || null
+  }
+
+  // validate from json server
+  validateUserByCreds(username: string, password: string) {
+    return this.http.get<User[]>(this.apiUrl).pipe(
+      map(users =>
+         users.find(
+          u => u.username === username && u.password === password
+        ) || null
+      )
+    );
   }
 
 }
