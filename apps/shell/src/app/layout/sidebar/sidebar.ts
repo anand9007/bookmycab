@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AuthService } from '@taxi-workspace/auth';
+import { AuthFacade } from '@taxi-workspace/auth';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,9 +9,9 @@ import { AuthService } from '@taxi-workspace/auth';
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss',
 })
-export class Sidebar implements OnInit{
-  private authService = inject(AuthService);
-  role$ = this.authService.role$;
+export class Sidebar {
+  private authFacade = inject(AuthFacade);
+  role$ = this.authFacade.role$;
   menuItems = [
     // show dashboard to all roles
     { label: 'Dashboard', route: '/app/admin', roles: ['ADMIN'] },
@@ -27,9 +27,4 @@ export class Sidebar implements OnInit{
     { label: 'Manage Passengers', route: '/app/admin/users', roles: ['ADMIN'] },
     { label: 'Banners / Offers', route: '/app/admin/users', roles: ['ADMIN'] },
   ];
-  ngOnInit(): void {
-    this.role$.subscribe(role => {
-      console.log('Sidebar User role changed:', role);
-    });
-  }
 }

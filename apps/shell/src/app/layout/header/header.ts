@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '@taxi-workspace/auth';
+import { AuthFacade } from '@taxi-workspace/auth';
 
 @Component({
   selector: 'app-header',
@@ -10,9 +10,9 @@ import { AuthService } from '@taxi-workspace/auth';
   styleUrl: './header.scss',
 })
 export class Header implements OnInit{
-  private authService = inject(AuthService);
+  private authFacade = inject(AuthFacade);
   private router = inject(Router);
-  role$ = this.authService.role$;
+  role$ = this.authFacade.role$;
   ngOnInit(): void {
     this.role$.subscribe(roleValue => {
       console.log('User role changed:', roleValue);
@@ -20,7 +20,7 @@ export class Header implements OnInit{
   }
 
    logout() {
-    this.authService.logout();
+    this.authFacade.clear();
     this.router.navigate(['/']);
   }
 }

@@ -1,4 +1,5 @@
 import { Route } from '@angular/router';
+import { authGuard } from '@taxi-workspace/auth';
 
 export const appRoutes: Route[] = [
   {
@@ -8,6 +9,7 @@ export const appRoutes: Route[] = [
   },
   {
     path: 'registered-users',
+    canActivate: [authGuard],
     loadComponent: () =>
       import('./registered-users/registered-users').then(m => m.RegisteredUsers),
   },

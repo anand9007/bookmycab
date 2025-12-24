@@ -24,11 +24,11 @@ export const selectAuthError = createSelector(
 );
 
 export const selectIsUserLoggedIn = createSelector(
-    selectAuthState,
-    (state) => !!state.user
+    selectAuthUser,
+    (user) => !!user
 )
 
 export const selectUserRole = createSelector(
-  selectAuthState,
-  state => state.user?.role
+  selectAuthUser,
+  user => user?.role || null
 );

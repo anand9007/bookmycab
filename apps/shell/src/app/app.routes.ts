@@ -20,26 +20,26 @@ export const appRoutes: Route[] = [
   },
   {
     path: 'app',
-    canActivate: [authGuard],
+    canActivateChild: [authGuard],
     loadComponent: () =>
       import('./layout/layout').then(m => m.Layout),
-    children: [
-      {
-        path: 'admin',
-        loadChildren: () =>
-          import('admin/Routes').then(m => m.remoteRoutes),
-      },
-      {
-        path: 'owner',
-        loadChildren: () =>
-          import('owner/Routes').then(m => m.remoteRoutes),
-      },
-      {
-        path: 'passenger',
-        loadChildren: () =>
-          import('passenger/Routes').then(m => m.remoteRoutes),
-      },
-    ],
-  },
+      children: [
+        {
+          path: 'admin',
+          loadChildren: () =>
+            import('admin/Routes').then(m => m.remoteRoutes),
+        },
+        {
+          path: 'owner',
+          loadChildren: () =>
+            import('owner/Routes').then(m => m.remoteRoutes),
+        },
+        {
+          path: 'passenger',
+          loadChildren: () =>
+            import('passenger/Routes').then(m => m.remoteRoutes),
+        },
+      ],
+    },
    { path: '**', redirectTo: '' },
 ];

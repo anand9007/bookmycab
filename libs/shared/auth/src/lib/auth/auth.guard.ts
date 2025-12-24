@@ -1,19 +1,28 @@
 import { inject } from "@angular/core";
-import { ActivatedRouteSnapshot, CanActivateFn, Router } from "@angular/router";
-import { AuthService } from "./auth.service";
+import { CanActivateFn, Router } from "@angular/router";
 import { UserRole } from "../models/user.model";
+import { AuthFacade } from "./auth.facade";
+import { combineLatest, map, take } from "rxjs";
 
-export const authGuard: CanActivateFn = (route: ActivatedRouteSnapshot) => {
-    const auth = inject(AuthService);
+export const authGuard: CanActivateFn = (route) => {
+    
+    const authFacade = inject(AuthFacade);
     const router = inject(Router);
-    const allowedRoutes = route.data?.['roles'] as UserRole[] | undefined;
+    const roles = route.data?.['roles'] as UserRole[] | undefined;
 
-    if(!auth.isUserLoggedIn()) {
-        return router.parseUrl('/login');
-    }
+    return combineLatest([
+        authFacade.isLoggedIn$,
+        authFacade.role$
+    ]).pipe(
+        take(1),
+        map(([isLoggedIn, role]) => {
+        if (!isLoggedIn) {
+            return router.parseUrl('/login');
+        }
 
-    if(allowedRoutes && auth.role && !allowedRoutes?.includes(auth.role)){
-        return router.parseUrl('/unauthorized');
-    }
-    return true;
+        if (roles && role && !roles.includes(role)) {
+            return router.parseUrl('/unauthorized');
+        }
+        return true;
+        }));
 }

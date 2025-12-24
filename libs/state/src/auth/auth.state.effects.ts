@@ -2,7 +2,7 @@ import { inject, Injectable, NgZone } from "@angular/core";
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as AuthActions from './auth.state.actions';
 import { AuthService } from "@taxi-workspace/auth";
-import { map, switchMap, tap } from "rxjs";
+import { catchError, map, of, switchMap, tap } from "rxjs";
 import { Router } from "@angular/router";
 
 @Injectable()
@@ -17,20 +17,26 @@ export class AuthEffects {
             ofType(AuthActions.login),
             switchMap(({ username, password }) => 
                 this.authService.validateUserByCreds(username, password).pipe(
-                    map(user => {
-                        console.log('user ', user);                        
-                        if(user) {
-                            return AuthActions.loginSuccess({
-                                    user: {
-                                        username: user.username,
-                                        role: user.role,
-                                    }
-                                })
+                    tap(res => {
+                        // persist logged user untill logouts
+                        if (res?.user.accessToken) {
+                            localStorage.setItem('access_token', res.user.accessToken);
                         }
-                        return AuthActions.loginFailure({ error: 'Invalid credentials' })
-                    })
+                        if (res?.user.role) {
+                            localStorage.setItem('role', res.user.role);
+                        }
+                    }),
+                    map(res1 =>
+                        AuthActions.loginSuccess({
+                            user: res1.user,
+                            token: res1.user.accessToken
+                        })
+                    ),
+                    catchError(error => 
+                        of(AuthActions.loginFailure({ error: error }))
+                    )
                 )
-            )
+            ),
         )
     )
 
@@ -40,7 +46,7 @@ export class AuthEffects {
             tap(({user})=> {
                 switch (user.role) {
                     case 'ADMIN':
-                    this.router.navigate(['/app/admin', user.role.toLowerCase()]);
+                    this.router.navigate(['/app/admin']);
                     break;
                     case 'OWNER':
                     this.router.navigate(['/app/owner']);

@@ -1,10 +1,17 @@
 import { inject, Injectable } from '@angular/core';
-import { BehaviorSubject, map, tap } from 'rxjs';
+import { BehaviorSubject, map, Observable, tap } from 'rxjs';
 import { User, UserRole } from '../models/user.model';
 import { HttpClient } from '@angular/common/http';
 
 const AUTH_ROLE_KEY = 'user_role';
 const USERS_KEY = 'registered_users';
+interface LoginResponse {
+  user: {
+    username: string;
+    role: UserRole;
+    accessToken: string;
+  };
+}
 @Injectable({
   providedIn: 'root',
 })
@@ -19,12 +26,7 @@ export class AuthService {
   // Auths
   readonly isLoggedIn$ = this.role$.pipe(map(res => !!res));
 
-  login(role: UserRole){
-    this.roleSubject.next(role);
-    localStorage.setItem(AUTH_ROLE_KEY, role);
-  }
-
-  logout(){
+ logout(){
     localStorage.removeItem(AUTH_ROLE_KEY);
     this.roleSubject.next(null);
   }
@@ -48,20 +50,28 @@ export class AuthService {
     localStorage.setItem(USERS_KEY, JSON.stringify(users));
   }
 
-  validateUser(username: string, password: string): User | null {
-    const users = this.getUsers();
-    return users.find(usr => usr.username === username && usr.password === password) || null
-  }
+  
 
-  // validate from json server
-  validateUserByCreds(username: string, password: string) {
-    return this.http.get<User[]>(this.apiUrl).pipe(
-      map(users =>
-         users.find(
-          u => u.username === username && u.password === password
-        ) || null
-      )
-    );
+  validateUserByCreds(username: string, password: string): Observable<LoginResponse> {
+    return this.http
+      .get<any[]>(this.apiUrl)
+      .pipe(
+        map(users => {
+          const validUser = users.find(
+            u => u.username === username && u.password === password
+          ) || null;
+          if (!validUser) {
+            throw new Error('Invalid credentials');
+          }
+          return {
+             user: {
+                username: validUser.username,
+                role: validUser.role,
+                accessToken: validUser.accessToken,
+              },
+          }
+        })
+      );
   }
 
 }
