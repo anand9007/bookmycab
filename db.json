@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "id": 1,
+      "id": "1",
       "username": "admin",
       "password": "admin123",
       "email": "admin@gmail.com",
@@ -9,20 +9,67 @@
       "accessToken": "admin-token-123"
     },
     {
-      "id": 2,
+      "id": "2",
       "username": "owner1",
       "email": "owner1@gmail.com",
-      "password": "owner123",
+      "password": "1234",
       "role": "OWNER",
       "accessToken": "owner1-token-123"
     },
     {
-      "id": 3,
+      "id": "3",
       "username": "passenger1",
       "email": "passenger1@gmail.com",
-      "password": "pass123",
+      "password": "1234",
       "role": "PASSENGER",
       "accessToken": "passenger1-token-123"
+    }
+  ],
+  "taxis": [
+    {
+      "id": "1",
+      "ownerId": "OWNER_1",
+      "number": "MH12AB1234",
+      "model": "Swift",
+      "status": "ACTIVE",
+      "type": "SUV",
+      "driverName": "Suresh"
+    },
+    {
+      "id": "2",
+      "ownerId": "OWNER_1",
+      "number": "MH12AB6596",
+      "model": "Baleno",
+      "status": "ACTIVE",
+      "type": "Hatchback",
+      "driverName": "Anil1"
+    },
+    {
+      "id": "3",
+      "number": "MH47BK9007",
+      "model": "Creta",
+      "type": "SEDAN",
+      "driverName": "Ankush",
+      "status": "ACTIVE",
+      "ownerId": "OWNER_1"
+    },
+    {
+      "id": "4",
+      "number": "MH47BK9008",
+      "model": "Fortuner",
+      "type": "SEDAN",
+      "driverName": "Subhash",
+      "status": "INACTIVE",
+      "ownerId": "OWNER_1"
+    },
+    {
+      "id": "1766731400149",
+      "number": "MH47BK9007",
+      "model": "wd",
+      "type": "HATCHBACK",
+      "driverName": "wdw",
+      "status": "ACTIVE",
+      "ownerId": "OWNER_1"
     }
   ]
 }

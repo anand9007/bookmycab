@@ -12,8 +12,11 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 
 import {
   AUTH_FEATURE_KEY,
+  TAXI_FEATURE_KEY,
   AuthEffects,
   authReducer,
+  taxiReducer,
+  TaxiEffects,
 }  from '@taxi-workspace/state';
 
 export const appConfig: ApplicationConfig = {
@@ -23,9 +26,10 @@ export const appConfig: ApplicationConfig = {
     provideRouter(appRoutes),
     provideHttpClient(),
     provideStore({
-      [AUTH_FEATURE_KEY]: authReducer
+      [AUTH_FEATURE_KEY]: authReducer,
+      [TAXI_FEATURE_KEY]: taxiReducer
     }),
-    provideEffects([AuthEffects]),
+    provideEffects([AuthEffects, TaxiEffects]),
     provideStoreDevtools({
       maxAge: 25,
       logOnly: false,

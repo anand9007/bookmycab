@@ -24,3 +24,7 @@ export const restoreSession = createAction(
     '[Auth] Restore Session',
     props<{token: string, user: AuthUser}>()
 )
+
+export const clearAuthError = createAction(
+    '[Auth] Clear Auth Error'
+)

@@ -1,6 +1,6 @@
 import { AuthState } from './auth';
-// import { UserState } from './users';
+import { TaxiState } from './taxi/taxi.state.models';
 export interface AppState {
   auth: AuthState;
-  // users: UserState;
+  taxi: TaxiState;
 }

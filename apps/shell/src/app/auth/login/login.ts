@@ -3,11 +3,12 @@ import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { login, selectAuthError } from '@taxi-workspace/state';
+import { ToastComponent } from '@taxi-workspace/auth';
+import { login } from '@taxi-workspace/state';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule, RouterLink, CommonModule],
+  imports: [FormsModule, RouterLink, CommonModule, ToastComponent],
   templateUrl: './login.html',
   styleUrl: './login.scss',
 })
@@ -23,5 +24,4 @@ export class Login {
     this.store.dispatch(login(this.loginDetails))
   }
 
-  authError$ = this.store.select(selectAuthError);
 }

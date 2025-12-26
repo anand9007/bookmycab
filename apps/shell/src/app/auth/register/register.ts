@@ -2,11 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { AuthService, UserRole } from '@taxi-workspace/auth';
+import { AuthService, ToastComponent, UserRole } from '@taxi-workspace/auth';
 
 @Component({
   selector: 'app-register',
-  imports: [FormsModule, RouterLink, CommonModule],
+  imports: [FormsModule, RouterLink, CommonModule, ToastComponent],
   templateUrl: './register.html',
   styleUrl: './register.scss',
 })

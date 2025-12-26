@@ -1,8 +1,8 @@
 import { inject, Injectable, NgZone } from "@angular/core";
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as AuthActions from './auth.state.actions';
-import { AuthService } from "@taxi-workspace/auth";
-import { catchError, map, of, switchMap, tap } from "rxjs";
+import { AuthService, ToastService } from "@taxi-workspace/auth";
+import { catchError, delay, map, of, switchMap, tap } from "rxjs";
 import { Router } from "@angular/router";
 
 @Injectable()
@@ -10,7 +10,7 @@ export class AuthEffects {
     private action$ = inject(Actions);
     private authService = inject(AuthService);
     private router = inject(Router);
-    private ngZone = inject(NgZone);
+    private toastService = inject(ToastService);
     
     login$ = createEffect(() => 
         this.action$.pipe(
@@ -60,5 +60,27 @@ export class AuthEffects {
         {
             dispatch: false
         }
+    )
+
+    // clearError$ = createEffect(() => 
+    //     this.action$.pipe(
+    //         tap(
+    //             res => console.log('tap clear error ', res)                
+    //         ),
+    //         ofType(AuthActions.loginFailure),
+    //         delay(3000),
+    //         map(() => AuthActions.clearAuthError())
+    //     ),
+    // )
+
+    loginFailure$ = createEffect(() => 
+        this.action$.pipe(
+            ofType(AuthActions.loginFailure),
+            tap(({error}) => {
+                console.error('Login Failure Effect11: ', error);
+                this.toastService.show(error, 'warning');
+            })
+        ),
+         { dispatch: false }
     )
 }

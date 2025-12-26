@@ -46,5 +46,11 @@ export const authReducer = createReducer(
         user,
         token,
         isAuthenticated: true
+    })),
+
+    // on clearing auth error
+    on(AuthActions.clearAuthError, state => ({
+        ...state,
+        error: null
     }))
 );

@@ -1,0 +1,57 @@
+<div class="modal-backdrop fade show"></div>
+
+    <div class="modal fade show d-block">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <h5 class="modal-title">
+              {{ taxi ? 'Edit Taxi' : 'Add Taxi' }}
+            </h5>
+            <button class="btn-close" (click)="close()">''</button>
+          </div>
+
+          <div class="modal-body">
+            <form #addEditForm="ngForm">
+              <div class="mb-2">
+                <label for="number">Taxi Number</label>
+                <input class="form-control" [(ngModel)]="form.number" name="number" />
+              </div>
+
+              <div class="mb-2">
+                <label for="model">Model</label>
+                <input class="form-control" [(ngModel)]="form.model" name="model" />
+              </div>
+
+              <div class="mb-2">
+                <label for="type">Type</label>
+                <select class="form-control" [(ngModel)]="form.type" [ngModelOptions]="{standalone: true}">
+                  <option>SUV</option>
+                  <option>SEDAN</option>
+                  <option>HATCHBACK</option>
+                </select>
+              </div>
+
+              <div class="mb-2">
+                <label for="dName">Driver Name</label>
+                <input class="form-control" [(ngModel)]="form.driverName" name="dName" />
+              </div>
+
+              <div class="mb-2">
+                <label for="status">Status</label>
+                <select class="form-control" [(ngModel)]="form.status" [ngModelOptions]="{standalone: true}">
+                  <option>ACTIVE</option>
+                  <option>INACTIVE</option>
+                </select>
+              </div>
+            </form>
+          </div>
+
+          <div class="modal-footer">
+            <button class="btn btn-secondary" (click)="close()">Cancel</button>
+            <button class="btn btn-primary" (click)="save()">Save</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
