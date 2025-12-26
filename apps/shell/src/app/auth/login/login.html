@@ -1,0 +1,35 @@
+
+<lib-app-toast-component></lib-app-toast-component>
+<div class="login ">
+
+  <div class="container vh-100 d-flex justify-content-center align-items-center">
+
+    <div class="card p-4 shadow bg-dark text-white">
+      <h3 class="text-center mb-3">Login</h3>
+      <form (ngSubmit)="login()" #loginForm="ngForm">
+        <div class="mb-3">
+          <input type="text" class="form-control" placeholder="Username" [(ngModel)]="loginDetails.username"
+            name="username" autocomplete="current-username" required />
+        </div>
+
+        <div class="mb-3">
+          <input type="password" class="form-control" name="password" placeholder="Password"
+            [(ngModel)]="loginDetails.password" autocomplete="current-password" required />
+        </div>
+
+        <button class="btn btn-primary w-100" type="submit" [disabled]="loginForm.invalid">
+          Login
+        </button>
+      </form>
+      <div class="text-center mt-3 mb-3">
+        <a routerLink="/register" class="text-white">Don't have an Account? Register</a>
+      </div>
+      <hr />
+      <div class="text-center">
+        <a routerLink="/" class="text-decoration-none text-warning">
+          ← Back to Home
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

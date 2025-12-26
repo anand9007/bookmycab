@@ -1,0 +1,70 @@
+<div class="taxi-list mt-3">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>My Taxis</h3>
+    <button class="btn btn-warning" (click)="openAdd()">
+      + Add Taxi
+    </button>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="text-center">
+    Loading taxis...
+  </div>
+
+  <!-- Empty state -->
+  <div *ngIf="!loading && taxis.length === 0" class="alert alert-info">
+    No taxis found. Click "Add Taxi" to create one.
+  </div>
+
+  <!-- Table -->
+  <table *ngIf="!loading && taxis.length > 0" class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Model</th>
+        <th>Type</th>
+        <th>Number</th>
+        <th>Driver</th>
+        <th>Status</th>
+        <th width="120">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let taxi of taxis">
+        <td>{{ taxi.model }}</td>
+        <td>{{ taxi.type }}</td>
+        <td>{{ taxi.number }}</td>
+        <td>{{ taxi.driverName }}</td>
+        <td>
+          <span
+            class="badge"
+            [class.bg-success]="taxi.status === 'ACTIVE'"
+            [class.bg-secondary]="taxi.status === 'INACTIVE'"
+          >
+            {{ taxi.status }}
+          </span>
+        </td>
+        <td>
+          <button
+            class="btn btn-sm btn-outline-secondary"
+            (click)="openEdit(taxi)"
+          >
+            Edit
+          </button>
+          <button
+          class="btn btn-sm btn-outline-danger"
+          (click)="deleteTaxi(taxi)"
+        >
+          Delete
+        </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<app-taxi-form-modal
+  *ngIf="showModal"
+  [taxi]="selectedTaxi"
+  (closed)="closeModal()"
+  (saved)="saveTaxi($event)"
+></app-taxi-form-modal>

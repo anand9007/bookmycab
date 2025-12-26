@@ -1,0 +1,1 @@
+export const TAXI_FEATURE_KEY = 'taxi';

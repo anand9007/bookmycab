@@ -1,0 +1,31 @@
+.sidebar {
+    .nav-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .menu {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        li {
+            padding: 10px 5px;
+            cursor: pointer;
+            font-weight: 500;
+            &:hover {
+                background: #e9ecef;
+            }
+            &.active {
+                background: #42454b;
+                a {
+                    color: #ffffff !important;
+                    svg{
+                        path {
+                            fill: #ffffff !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

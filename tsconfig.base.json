@@ -1,0 +1,28 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "owner/Routes": ["apps/owner/src/app/remote-entry/entry.routes.ts"],
+      "passenger/Routes": [
+        "apps/passenger/src/app/remote-entry/entry.routes.ts"
+      ],
+      "admin/Routes": ["apps/admin/src/app/remote-entry/entry.routes.ts"],
+      "@taxi-workspace/auth": ["libs/shared/auth/src/index.ts"],
+      "@taxi-workspace/state": ["libs/state/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

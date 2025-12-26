@@ -1,0 +1,16 @@
+.login{
+     background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+    url('https://images.unsplash.com/photo-1529070538774-1843cb3265df');
+    background-size: cover;
+    background-position: center;
+    background-repeat: repeat;
+    .card{
+        width: 350px;
+        .navbar {
+            .navbar-brand{
+                font-weight: bold;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+        }
+    }
+}
